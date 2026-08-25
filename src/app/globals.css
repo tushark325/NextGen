@@ -1,0 +1,463 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS DESIGN TOKENS
+   ───────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --background: 234 40% 6%;
+    --foreground: 234 15% 98%;
+
+    --card: 234 35% 9%;
+    --card-foreground: 234 15% 98%;
+
+    --popover: 234 35% 9%;
+    --popover-foreground: 234 15% 98%;
+
+    --primary: 187 100% 50%;
+    --primary-foreground: 234 100% 4%;
+
+    --secondary: 234 25% 16%;
+    --secondary-foreground: 234 70% 85%;
+
+    --muted: 234 25% 13%;
+    --muted-foreground: 234 15% 65%;
+
+    --accent: 271 100% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 234 25% 18%;
+    --input: 234 25% 18%;
+    --ring: 187 100% 50%;
+
+    --radius: 0.875rem;
+
+    --font-inter: "Inter", system-ui, sans-serif;
+    --font-outfit: "Outfit", system-ui, sans-serif;
+  }
+
+  .light {
+    --background: 230 25% 98%;
+    --foreground: 234 40% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 234 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 234 40% 10%;
+
+    --primary: 234 80% 54%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 234 30% 94%;
+    --secondary-foreground: 234 60% 30%;
+
+    --muted: 234 20% 95%;
+    --muted-foreground: 234 15% 45%;
+
+    --accent: 271 80% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 234 20% 88%;
+    --input: 234 20% 88%;
+    --ring: 234 80% 54%;
+  }
+
+  .dark {
+    --background: 234 40% 6%;
+    --foreground: 234 15% 98%;
+
+    --card: 234 35% 9%;
+    --card-foreground: 234 15% 98%;
+
+    --popover: 234 35% 9%;
+    --popover-foreground: 234 15% 98%;
+
+    --primary: 187 100% 50%;
+    --primary-foreground: 234 100% 4%;
+
+    --secondary: 234 25% 16%;
+    --secondary-foreground: 234 70% 85%;
+
+    --muted: 234 25% 13%;
+    --muted-foreground: 234 15% 65%;
+
+    --accent: 271 100% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 234 25% 18%;
+    --input: 234 25% 18%;
+    --ring: 187 100% 50%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BASE STYLES
+   ───────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit);
+    @apply font-semibold tracking-tight;
+  }
+
+  /* Focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COMPONENT LAYER
+   ───────────────────────────────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── 3D Glass & Holographic Surfaces ───────────────────────────────────── */
+  .glass-panel {
+    @apply bg-[rgba(10,15,36,0.7)] backdrop-blur-2xl border border-white/10 shadow-2xl;
+  }
+
+  .glass-card-3d {
+    @apply relative bg-[rgba(12,18,44,0.75)] backdrop-blur-xl border border-white/10 rounded-2xl
+           transition-all duration-300 ease-out;
+    transform-style: preserve-3d;
+  }
+
+  .glass-card-3d:hover {
+    @apply border-cyan-500/40 shadow-holo-md -translate-y-1.5;
+  }
+
+  .glass-dock {
+    @apply bg-[rgba(8,12,30,0.8)] backdrop-blur-2xl border border-white/15 shadow-holo-sm;
+  }
+
+  .hologram-glow {
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.35), inset 0 0 15px rgba(0, 242, 254, 0.15);
+  }
+
+  .hologram-glow-violet {
+    box-shadow: 0 0 30px rgba(127, 0, 255, 0.4), inset 0 0 15px rgba(127, 0, 255, 0.15);
+  }
+
+  .hologram-border {
+    position: relative;
+  }
+
+  .hologram-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.6), rgba(127, 0, 255, 0.4), rgba(241, 7, 163, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .scanline-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanline-effect::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 242, 254, 0.15), transparent);
+    animation: scan-line 4s linear infinite;
+    pointer-events: none;
+  }
+
+  /* ── 3D Property Card ─────────────────────────────────────────────────── */
+  .property-card {
+    @apply relative bg-[rgba(10,16,38,0.85)] rounded-2xl overflow-hidden border border-white/10
+           transition-all duration-300 ease-out cursor-pointer;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .property-card:hover {
+    @apply border-cyan-500/50 shadow-holo-md -translate-y-1.5;
+  }
+
+  .property-card__image {
+    @apply relative w-full aspect-[4/3] overflow-hidden bg-muted/40;
+  }
+
+  .property-card__image img {
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
+  }
+
+  .property-card:hover .property-card__image img {
+    @apply scale-105;
+  }
+
+  /* ── Holographic Circular Match Score Badge ────────────────────────────── */
+  .match-badge {
+    @apply absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1.5
+           rounded-full text-xs font-bold backdrop-blur-xl
+           border shadow-holo-sm transition-transform duration-300;
+  }
+
+  .match-badge--excellent {
+    @apply bg-cyan-950/80 text-cyan-300 border-cyan-400/50 shadow-holo-sm;
+  }
+
+  .match-badge--good {
+    @apply bg-emerald-950/80 text-emerald-300 border-emerald-400/50;
+  }
+
+  .match-badge--partial {
+    @apply bg-amber-950/80 text-amber-300 border-amber-400/50;
+  }
+
+  .match-badge--low {
+    @apply bg-rose-950/80 text-rose-300 border-rose-400/50;
+  }
+
+  /* ── Holographic Match Ring ────────────────────────────────────────────── */
+  .match-ring-outer {
+    @apply relative flex items-center justify-center rounded-full;
+    background: conic-gradient(from 0deg, #00f2fe, #7f00ff, #f107a3, #00f2fe);
+    padding: 3px;
+    animation: spin-slow 12s linear infinite;
+  }
+
+  .match-ring-inner {
+    @apply w-full h-full rounded-full bg-[rgba(8,12,30,0.95)] flex flex-col items-center justify-center backdrop-blur-md;
+  }
+
+  /* ── Status Badge ─────────────────────────────────────────────────────── */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           text-xs font-medium border backdrop-blur-md;
+  }
+
+  /* ── Section ──────────────────────────────────────────────────────────── */
+  .section {
+    @apply py-20 md:py-32 relative;
+  }
+
+  .section-sm {
+    @apply py-10 md:py-16 relative;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6;
+  }
+
+  /* ── Card Variants ────────────────────────────────────────────────────── */
+  .card-elevated {
+    @apply bg-[rgba(12,18,44,0.75)] backdrop-blur-xl rounded-2xl border border-white/10 shadow-lg p-6
+           transition-all duration-300 hover:border-cyan-500/30;
+  }
+
+  .card-glass {
+    @apply bg-[rgba(10,15,36,0.65)] backdrop-blur-2xl rounded-2xl border border-white/15 shadow-holo-sm p-6;
+  }
+
+  /* ── Dashboard Stats ──────────────────────────────────────────────────── */
+  .stat-card {
+    @apply bg-[rgba(12,18,44,0.75)] backdrop-blur-xl rounded-2xl border border-white/10 p-6
+           hover:border-cyan-500/40 hover:shadow-holo-sm transition-all duration-300;
+  }
+
+  /* ── Skeleton ─────────────────────────────────────────────────────────── */
+  .skeleton {
+    @apply relative overflow-hidden rounded-xl bg-white/5;
+  }
+
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 242, 254, 0.08) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  /* ── Gradient Text ────────────────────────────────────────────────────── */
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-holo {
+    @apply bg-gradient-to-r from-cyan-400 via-violet-400 to-pink-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-amber-300 via-yellow-200 to-orange-400 bg-clip-text text-transparent;
+  }
+
+  /* ── Step Indicator ───────────────────────────────────────────────────── */
+  .step-dot {
+    @apply w-2.5 h-2.5 rounded-full transition-all duration-300;
+  }
+
+  .step-dot--active {
+    @apply bg-cyan-400 w-8 shadow-holo-sm;
+  }
+
+  .step-dot--complete {
+    @apply bg-emerald-400;
+  }
+
+  .step-dot--pending {
+    @apply bg-white/20;
+  }
+
+  /* ── Form field helpers ───────────────────────────────────────────────── */
+  .form-label-required::after {
+    content: " *";
+    @apply text-destructive;
+  }
+
+  /* ── Map pin ──────────────────────────────────────────────────────────── */
+  .map-pin {
+    @apply flex flex-col items-center cursor-pointer;
+  }
+
+  .map-pin__bubble {
+    @apply bg-[rgba(8,12,30,0.9)] text-cyan-300 text-xs font-bold
+           px-2.5 py-1.5 rounded-xl shadow-holo-sm border border-cyan-400/60
+           transition-transform duration-200 hover:scale-110;
+  }
+
+  .map-pin__tail {
+    @apply w-0 h-0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid rgba(0, 242, 254, 0.8);
+  }
+
+  /* ── Chat Bubble ──────────────────────────────────────────────────────── */
+  .chat-bubble {
+    @apply max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed backdrop-blur-md;
+  }
+
+  .chat-bubble--sent {
+    @apply bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-br-sm ml-auto shadow-holo-sm;
+  }
+
+  .chat-bubble--received {
+    @apply bg-[rgba(18,24,54,0.85)] text-foreground rounded-bl-sm border border-white/10;
+  }
+
+  /* ── Match Explanation ────────────────────────────────────────────────── */
+  .match-item {
+    @apply flex items-start gap-3 p-3.5 rounded-xl border backdrop-blur-sm;
+  }
+
+  .match-item--positive {
+    @apply bg-emerald-950/40 text-emerald-300 border-emerald-500/30;
+  }
+
+  .match-item--neutral {
+    @apply bg-white/5 text-muted-foreground border-white/10;
+  }
+
+  .match-item--negative {
+    @apply bg-amber-950/40 text-amber-300 border-amber-500/30;
+  }
+
+  .match-item--conflict {
+    @apply bg-rose-950/40 text-rose-300 border-rose-500/30;
+  }
+
+  /* ── Page Hero ────────────────────────────────────────────────────────── */
+  .page-hero {
+    @apply relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950 via-[#060a1d] to-[#040612];
+  }
+
+  .page-hero::before {
+    content: "";
+    @apply absolute inset-0 bg-cyber-grid opacity-30;
+  }
+
+  /* ── Scrollbar ────────────────────────────────────────────────────────── */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 242, 254, 0.3) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-cyan-500/30 hover:bg-cyan-500/60 transition-colors;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY OVERRIDES
+   ───────────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .animate-in {
+    @apply animate-fade-in;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+}
